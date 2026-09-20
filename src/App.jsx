@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './App.css'
 
 const images = {
@@ -19,6 +21,106 @@ function useReveal() {
     }, { threshold: .14 })
     document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el))
     return () => io.disconnect()
+  }, [])
+}
+
+gsap.registerPlugin(ScrollTrigger)
+
+function useCinematicMotion(scopeRef) {
+  useLayoutEffect(() => {
+    const root = scopeRef.current
+    if (!root) return
+
+    const ctx = gsap.context(() => {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (reduced) return
+
+      const mm = gsap.matchMedia()
+
+      mm.add('(min-width: 901px)', () => {
+        gsap.to('.hero', {
+          backgroundPosition: '50% 62%',
+          ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 }
+        })
+
+        gsap.to('.hero-content', {
+          yPercent: 18,
+          scale: .94,
+          opacity: .45,
+          ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
+        })
+
+        gsap.to('.s-left', {
+          y: -110,
+          x: 35,
+          rotate: -13,
+          ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.1 }
+        })
+
+        gsap.to('.s-right', {
+          y: 95,
+          x: -28,
+          rotate: 10,
+          ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.15 }
+        })
+
+        gsap.utils.toArray('.story-image,.feature-image,.deck-band,.event-image,.tour-visual,.case-hero-image').forEach((el) => {
+          gsap.fromTo(el,
+            { backgroundPosition: '50% 42%' },
+            { backgroundPosition: '50% 62%', ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1.2 } }
+          )
+        })
+
+        gsap.utils.toArray('.pillar').forEach((el, i) => {
+          gsap.fromTo(el,
+            { y: 70 + i * 16, scale: .96 },
+            { y: -24 - i * 8, scale: 1, ease: 'none', scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 30%', scrub: 1 } }
+          )
+        })
+
+        gsap.utils.toArray('.tour-step').forEach((el) => {
+          const visual = el.querySelector('.tour-visual')
+          const copy = el.querySelector('div:nth-child(2)')
+          if (visual) gsap.fromTo(visual, { y: 80 }, { y: -50, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1 } })
+          if (copy) gsap.fromTo(copy, { y: 28 }, { y: -20, ease: 'none', scrollTrigger: { trigger: el, start: 'top 80%', end: 'bottom 30%', scrub: 1 } })
+        })
+      })
+
+      mm.add('(max-width: 900px)', () => {
+        gsap.to('.hero-content', {
+          y: 42,
+          ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .8 }
+        })
+        gsap.utils.toArray('.story-image,.feature-image,.deck-band,.event-image,.tour-visual,.case-hero-image').forEach((el) => {
+          gsap.fromTo(el,
+            { backgroundPosition: '50% 46%' },
+            { backgroundPosition: '50% 56%', ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: .8 } }
+          )
+        })
+      })
+
+      gsap.utils.toArray('[data-reveal]').forEach((el) => {
+        const headings = el.querySelectorAll('h1,h2,h3,h4,h5,.eyebrow,.script')
+        if (!headings.length) return
+        gsap.from(headings, {
+          y: 34,
+          opacity: 0,
+          duration: .9,
+          stagger: .08,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 82%', once: true }
+        })
+      })
+
+      return () => mm.revert()
+    }, root)
+
+    return () => ctx.revert()
   }, [])
 }
 
@@ -54,8 +156,10 @@ function Footer() {
 }
 
 function Home() {
+  const scope = useRef(null)
   useReveal()
-  return <main>
+  useCinematicMotion(scope)
+  return <main ref={scope}>
     <Header />
     <section className="hero" style={{'--bg': `url(${images.hero})`}}>
       <div className="hero-shade"/>
@@ -159,8 +263,10 @@ const tourSteps = [
 ]
 
 function Tour() {
+  const scope = useRef(null)
   useReveal()
-  return <main className="tour-page">
+  useCinematicMotion(scope)
+  return <main ref={scope} className="tour-page">
     <Header />
     <section className="tour-hero" style={{backgroundImage:`linear-gradient(180deg,rgba(0,0,0,.2),#090806 98%),url(${images.hero})`}}>
       <div className="eyebrow">ROOTMANSION · VISION TOUR</div>
@@ -193,7 +299,9 @@ function Tour() {
 }
 
 function CaseStudy() {
+  const scope = useRef(null)
   useReveal()
+  useCinematicMotion(scope)
   const sections = useMemo(()=>[
     ['CURRENT STATE','The signal is already there.','Blakka Route has an authentic music and performance identity, while RootMansion introduces a physical hospitality and culture space. The current public digital footprint is Facebook-first, which means the opportunity is not to “fix” a brand — it is to give an emerging one a proper home.'],
     ['BRAND SYSTEM','Three reasons to come.','STAY gives travellers a home. THE DECK gives Takoradi a gathering place. ROOT SESSIONS gives the venue cultural programming people can follow, share and return for.'],
@@ -201,7 +309,7 @@ function CaseStudy() {
     ['CONTENT ENGINE','The venue creates its own marketing.','Every performance, sunset, meal and guest story becomes material. Live clips feed Reels, TikTok, Facebook and YouTube. Those surfaces drive discovery back to an owned event and booking experience.'],
     ['FUTURE SYSTEM','Start visual. Add machinery when demand earns it.','Direct room booking, event ticketing, a live calendar, WhatsApp automation, artist/session archives, email and SMS, analytics, and eventually a repeatable content workflow.'],
   ],[])
-  return <main className="case-page">
+  return <main ref={scope} className="case-page">
     <Header/>
     <section className="case-hero" data-reveal>
       <div><div className="eyebrow gold">CONCEPT CASE STUDY · 2026</div><h1>Building a digital home<br/>for <em>RootMansion.</em></h1><p>Hospitality, performance and Takoradi harbour culture — brought into one coherent experience.</p></div>
