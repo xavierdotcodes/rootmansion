@@ -4,13 +4,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './App.css'
 
 const images = {
-  hero: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=2400&q=88',
+  hero: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=2400&q=88',
   room: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1800&q=88',
   deck: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=88',
-  session: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1800&q=88',
-  crowd: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1800&q=88',
+  session: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=88',
+  social: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1800&q=88',
   food: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1800&q=88',
-  artist: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1800&q=88',
+  evening: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=88',
   room2: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1800&q=88',
 }
 
@@ -168,8 +168,8 @@ function Home() {
         <div className="eyebrow">TAKORADI · GHANA</div>
         <h1>ROOTMANSION</h1>
         <div className="brushline"/>
-        <h2>STAY. SOUND. CULTURE.</h2>
-        <p>A harbour house for music, people and unforgettable nights.</p>
+        <h2>STAY. DRINK. GATHER.</h2>
+        <p>A spacious harbour-side stay and open deck made for good food, drinks, people and easy Takoradi nights.</p>
         <div className="hero-actions">
           <a className="pill pill-gold" href="#stay">Book a Stay <span>→</span></a>
           <a className="pill pill-outline" href="#sessions">See What's On</a>
@@ -184,7 +184,7 @@ function Home() {
       <div className="story-copy">
         <div className="eyebrow gold">OUR STORY</div>
         <h3>A House<br/>With a Rhythm</h3>
-        <p>RootMansion is a boutique stay, open-air gathering space and live-music house overlooking Takoradi Harbour — built for travellers, artists, friends and the nights that become stories.</p>
+        <p>RootMansion is a relaxed stay, spacious open deck and social house overlooking Takoradi Harbour — built for travellers, friends, food, drinks and the kind of evenings that stretch naturally into night.</p>
         <div className="script">More Than A Stay</div>
       </div>
       <div className="story-image" style={{backgroundImage:`linear-gradient(90deg,rgba(0,0,0,.2),rgba(0,0,0,.15)),url(${images.deck})`}}>
@@ -196,7 +196,7 @@ function Home() {
       {[
         ['stay','STAY','Private rooms for weekends, stopovers and longer stays.',images.room],
         ['deck','THE DECK','Drinks, food, harbour air and Takoradi evenings.',images.deck],
-        ['sessions','ROOT SESSIONS','Live music, dub poetry, DJs and cultural experiences.',images.session],
+        ['sessions','ROOT SESSIONS','On selected nights: acoustic sets, dub poetry, selectors and intimate live moments.',images.session],
       ].map(([id,title,copy,img]) => <a id={id} key={id} href={id==='sessions'?'#event':'#contact'} className="pillar" style={{backgroundImage:`linear-gradient(180deg,transparent 35%,rgba(0,0,0,.88)),url(${img})`}} data-reveal>
         <div><h4>{title}</h4><p>{copy}</p></div><span>→</span>
       </a>)}
@@ -225,21 +225,21 @@ function Home() {
       <div className="event-copy">
         <div className="eyebrow gold">UPCOMING · CONCEPT EVENT</div>
         <h3>ROOT SESSIONS <span>#001</span></h3>
-        <h5>Live from the Harbour</h5>
-        <p>An intimate night of live music, dub poetry, selectors and conversation.</p>
-        <div className="meta">SATURDAY · 8:00 PM · ROOTMANSION, TAKORADI</div>
+        <h5>An Evening at RootMansion</h5>
+        <p>Not a concert. Just a good night at the house — drinks flowing, people talking, and a small live set or selector adding texture to the evening.</p>
+        <div className="meta">SATURDAY EVENING · ROOTMANSION, TAKORADI</div>
         <div className="hero-actions">
           <a className="pill pill-gold" href="#contact">Reserve</a>
           <a className="pill pill-outline" href="/tour">See the Vision</a>
         </div>
       </div>
-      <div className="event-image" style={{backgroundImage:`linear-gradient(90deg,rgba(0,0,0,.12),rgba(0,0,0,.55)),url(${images.artist})`}}>
+      <div className="event-image" style={{backgroundImage:`linear-gradient(90deg,rgba(0,0,0,.12),rgba(0,0,0,.55)),url(${images.evening})`}}>
         <div className="scribble event-scribble">Music<br/>People<br/>Place<br/>Purpose</div>
       </div>
     </section>
 
     <section className="gallery-strip">
-      {[images.crowd,images.food,images.session,images.room].map((img,i)=><div key={i} style={{backgroundImage:`url(${img})`}} />)}
+      {[images.deck,images.food,images.room2,images.room].map((img,i)=><div key={i} style={{backgroundImage:`url(${img})`}} />)}
     </section>
 
     <section id="contact" className="closing" data-reveal>
@@ -254,12 +254,12 @@ function Home() {
 }
 
 const tourSteps = [
-  ['01','THE PLACE','RootMansion already has the hardest part: a real place, a real point of view and a founder with cultural gravity.'],
+  ['01','THE PLACE','RootMansion already has the hardest part: a real place, a harbour-facing setting, space to gather and a founder with a distinct cultural identity.'],
   ['02','THE OPPORTUNITY','Turn a physical venue into a destination people can discover before they arrive — and remember after they leave.'],
-  ['03','STAY','Boutique rooms give visitors a reason to stay inside the experience instead of just passing through it.'],
-  ['04','THE DECK','The harbour-facing deck becomes the social heart: food, drinks, sunset, conversations and private gatherings.'],
-  ['05','ROOT SESSIONS','Recurring live programming gives RootMansion its own cultural IP — not random events, but a series people recognise.'],
-  ['06','THE FLYWHEEL','One night becomes dozens of touchpoints: performance → clips → social → discovery → booking → return visit.'],
+  ['03','STAY','Comfortable rooms give visitors a reason to stay close to the harbour, the deck and the social atmosphere instead of just passing through Takoradi.'],
+  ['04','THE DECK','The harbour-facing deck is the social heart: plenty of space, food, drinks, sunset, conversations and private gatherings.'],
+  ['05','ROOT SESSIONS','Occasional Root Sessions give the house a cultural signature without turning it into a concert venue — acoustic sets, poetry, selectors and small live moments that fit the room.'],
+  ['06','THE FLYWHEEL','One good evening can become dozens of touchpoints: atmosphere → food and drinks → a short live moment → clips → social discovery → booking → return visit.'],
 ]
 
 function Tour() {
@@ -277,15 +277,15 @@ function Tour() {
     {tourSteps.map(([n,kicker,copy],i)=><section key={n} className={`tour-step ${i%2?'reverse':''}`} data-reveal>
       <div className="tour-number">{n}</div>
       <div><div className="eyebrow gold">{kicker}</div><h2>{copy.split(' — ')[0]}</h2><p>{copy}</p></div>
-      <div className="tour-visual" style={{backgroundImage:`url(${[images.deck,images.crowd,images.room,images.food,images.session,images.artist][i]})`}}/>
+      <div className="tour-visual" style={{backgroundImage:`url(${[images.deck,images.deck,images.room,images.food,images.session,images.evening][i]})`}}/>
     </section>)}
     <section className="ecosystem" data-reveal>
       <div className="eyebrow gold">ONE NIGHT · MANY SURFACES</div>
       <h2>ROOT SESSIONS #001</h2>
-      <p>One event becomes a content and commerce system.</p>
+      <p>One evening becomes a content and commerce system.</p>
       <div className="ecosystem-grid">
-        {['LIVE PERFORMANCE','REEL / SHORT','FACEBOOK EVENT','EVENT PAGE','TABLE RESERVATION','STAY THE NIGHT'].map((x,i)=><div key={x} className="eco-card">
-          <span>0{i+1}</span><strong>{x}</strong><small>{['Capture the room','Publish the moment','Build local reach','Own the story','Convert interest','Extend the experience'][i]}</small>
+        {['THE EVENING','REEL / SHORT','FACEBOOK POST',"WHAT'S ON",'TABLE RESERVATION','STAY THE NIGHT'].map((x,i)=><div key={x} className="eco-card">
+          <span>0{i+1}</span><strong>{x}</strong><small>{['Capture the atmosphere','Publish the moment','Build local reach','Show what is happening','Convert interest','Extend the experience'][i]}</small>
         </div>)}
       </div>
     </section>
@@ -303,19 +303,19 @@ function CaseStudy() {
   useReveal()
   useCinematicMotion(scope)
   const sections = useMemo(()=>[
-    ['CURRENT STATE','The signal is already there.','Blakka Route has an authentic music and performance identity, while RootMansion introduces a physical hospitality and culture space. The current public digital footprint is Facebook-first, which means the opportunity is not to “fix” a brand — it is to give an emerging one a proper home.'],
-    ['BRAND SYSTEM','Three reasons to come.','STAY gives travellers a home. THE DECK gives Takoradi a gathering place. ROOT SESSIONS gives the venue cultural programming people can follow, share and return for.'],
-    ['REVENUE SURFACES','More than room nights.','Accommodation. Food and drinks. Event reservations. Private venue hire. Over time: ticketed sessions, artist residencies, brand events, creator stays and direct booking.'],
-    ['CONTENT ENGINE','The venue creates its own marketing.','Every performance, sunset, meal and guest story becomes material. Live clips feed Reels, TikTok, Facebook and YouTube. Those surfaces drive discovery back to an owned event and booking experience.'],
+    ['CURRENT STATE','The signal is already there.','Blakka Route has an authentic music and performance identity, while RootMansion introduces a physical hospitality and social space. The current public digital footprint is Facebook-first, which means the opportunity is not to “fix” a brand — it is to give an emerging one a proper home.'],
+    ['BRAND SYSTEM','Three reasons to come.','STAY gives travellers a home. THE DECK gives Takoradi a spacious place to eat, drink and gather. ROOT SESSIONS adds occasional cultural programming people can follow and share without making performance the whole identity.'],
+    ['REVENUE SURFACES','More than room nights.','Accommodation. Food and drinks. Table reservations. Private gatherings and selective event hire. Over time: ticketed sessions, artist residencies, brand events, creator stays and direct booking.'],
+    ['CONTENT ENGINE','The venue creates its own marketing.','Every sunset, meal, gathering, guest story and occasional live moment becomes material. Live clips feed Reels, TikTok, Facebook and YouTube. Those surfaces drive discovery back to an owned event and booking experience.'],
     ['FUTURE SYSTEM','Start visual. Add machinery when demand earns it.','Direct room booking, event ticketing, a live calendar, WhatsApp automation, artist/session archives, email and SMS, analytics, and eventually a repeatable content workflow.'],
   ],[])
   return <main ref={scope} className="case-page">
     <Header/>
     <section className="case-hero" data-reveal>
-      <div><div className="eyebrow gold">CONCEPT CASE STUDY · 2026</div><h1>Building a digital home<br/>for <em>RootMansion.</em></h1><p>Hospitality, performance and Takoradi harbour culture — brought into one coherent experience.</p></div>
+      <div><div className="eyebrow gold">CONCEPT CASE STUDY · 2026</div><h1>Building a digital home<br/>for <em>RootMansion.</em></h1><p>Hospitality, social life and Takoradi harbour atmosphere — brought into one coherent experience.</p></div>
       <div className="case-hero-image" style={{backgroundImage:`url(${images.deck})`}}/>
     </section>
-    <section className="case-intro" data-reveal><span>THE IDEA</span><h2>RootMansion should not feel like an Airbnb that happens to host music.</h2><p>It should feel like a cultural house that you can also sleep in.</p></section>
+    <section className="case-intro" data-reveal><span>THE IDEA</span><h2>RootMansion should not feel like an Airbnb, and it should not feel like a concert venue either.</h2><p>It should feel like a spacious Takoradi social house you can eat, drink, gather and stay in — with culture woven through it.</p></section>
     {sections.map(([eyebrow,title,copy],i)=><section className="case-row" key={eyebrow} data-reveal>
       <div className="case-index">0{i+1}</div><div><div className="eyebrow gold">{eyebrow}</div><h3>{title}</h3></div><p>{copy}</p>
     </section>)}
